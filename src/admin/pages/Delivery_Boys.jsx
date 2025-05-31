@@ -28,7 +28,7 @@ const DeliveryBoys = () => {
             <img
               src={image}
               alt={boy.Name}
-              className="w-16 h-16 rounded-full object-cover mt-2 shadow-lg"
+              className="w-16 h-16 rounded-full object-cover mt-2 "
             />
             <div className="ml-4">
               <h3 className="text-lg font-[600] text-gray-900">{boy.Name}</h3>
