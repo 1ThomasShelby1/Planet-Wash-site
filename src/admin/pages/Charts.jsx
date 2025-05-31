@@ -88,7 +88,7 @@ const DashBoard_Graphs = () => {
                 +2.45%</h1>
             </div>
             <p className="text-sm text-[#05CD99] flex items-center pr-2 pt-3">
-              <img src="/Frame 5.png" className="mr-1" />
+              <img src="/TickMark.png" className="mr-1" />
               On track
             </p>
           </div>
