@@ -47,6 +47,7 @@ const SignIn = () => {
       const otpCode = otp.join('');
       const res = await verifyOtp({ email, otp: otpCode }).unwrap();
       toast.success("OTP verified successfully!")
+      localStorage.setItem('token', "rutik")
       navigate('/');
     } catch (err) {
       toast.error("OTP verification failed!");
@@ -71,12 +72,12 @@ const SignIn = () => {
         {/* Left Section */}
         <div className="w-full lg:w-[510px] px-6 sm:px-10 flex flex-col justify-center">
           <form className=" space-y-5" onSubmit={step === 1 ? handleSendOtp : handleVerifyOtp}>
-          <div className="flex justify-center">
-            <img src={Logo} alt="Logo" className="w-32 sm:w-40 md:w-56" />
-          </div>
+            <div className="flex justify-center">
+              <img src={Logo} alt="Logo" className="w-32 sm:w-40 md:w-56" />
+            </div>
             <div>
               <label className="block font-sans text-sm md:text-base font-[400] text-black">Email</label>
-            {/* Email Input */}
+              {/* Email Input */}
               <input
                 type="email"
                 value={email}
@@ -87,53 +88,49 @@ const SignIn = () => {
                 disabled={step === 2}
               />
             </div>
-
             {/* OTP Input (Step 2 only) */}
-              <div>
-                <label className="text-sm md:text-base font-[400] font-sans">
-                  Enter OTP Sent On Your Mail
-                </label>
-                <div className="flex justify-start space-x-5 ">
-                  {Array(4).fill(0).map((_, idx) => (
-                    <input
-                      key={idx}
-                      id={`otp-${idx}`}
-                      maxLength={1}
-                      type="text"
-                      value={otp[idx]}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        if (!/^\d*$/.test(val)) return;
-                        const newOtp = [...otp];
-                        newOtp[idx] = val;
-                        setOtp(newOtp);
-                        if (val && idx < 3) {
-                          document.getElementById(`otp-${idx + 1}`)?.focus();
-                        }
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Backspace' && !otp[idx] && idx > 0) {
-                          document.getElementById(`otp-${idx - 1}`)?.focus();
-                        }
-                      }}
-                      className=" mt-1 size-10 text-center text-sm md:text-base font-[400] font-sans rounded-lg border border-gray-200 bg-[#F4F7FE] focus:outline-none"
-                    />
-                  ))}
-                </div>{step === 2 && (
-                  <div className="text-right mt-2">
-                    <button
-                      type="button"
-                      onClick={handleResendOtp}
-                      className="text-sm text-blue-600 hover:underline"
-                    >
-                      Resend OTP
-                    </button>
-                  </div>
-                )}
-
-
-              </div>
-
+            <div>
+              <label className="text-sm md:text-base font-[400] font-sans">
+                Enter OTP Sent On Your Mail
+              </label>
+              <div className="flex justify-start space-x-5 ">
+                {Array(4).fill(0).map((_, idx) => (
+                  <input
+                    key={idx}
+                    id={`otp-${idx}`}
+                    maxLength={1}
+                    type="text"
+                    value={otp[idx]}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (!/^\d*$/.test(val)) return;
+                      const newOtp = [...otp];
+                      newOtp[idx] = val;
+                      setOtp(newOtp);
+                      if (val && idx < 3) {
+                        document.getElementById(`otp-${idx + 1}`)?.focus();
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Backspace' && !otp[idx] && idx > 0) {
+                        document.getElementById(`otp-${idx - 1}`)?.focus();
+                      }
+                    }}
+                    className=" mt-1 size-10 text-center text-sm md:text-base font-[400] font-sans rounded-lg border border-gray-200 bg-[#F4F7FE] focus:outline-none"
+                  />
+                ))}
+              </div>{step === 2 && (
+                <div className="text-right mt-2">
+                  <button
+                    type="button"
+                    onClick={handleResendOtp}
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    Resend OTP
+                  </button>
+                </div>
+              )}
+            </div>
             {/* Button */}
             <div className="text-center">
               <button
@@ -145,7 +142,6 @@ const SignIn = () => {
             </div>
           </form>
         </div>
-
         {/* Right Section */}
         <div className="w-full lg:w-1/2 bg-[#09B1EE] text-white px-6 sm:px-4 py-8 flex flex-col justify-end relative overflow-hidden">
           {/* Background Circles confined to right section only */}
@@ -153,7 +149,6 @@ const SignIn = () => {
             <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#6AD2FF45] opacity-100 rounded-full"></div>
             <div className="absolute -bottom-12 -right-12 w-36 h-36 bg-[#6AD2FF45] opacity-100 rounded-full"></div>
           </div>
-
           <h1 className="text-5xl font-DM Sans font-bold z-10">Sign In</h1>
         </div>
       </div>
