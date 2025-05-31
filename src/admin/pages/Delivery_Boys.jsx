@@ -14,7 +14,7 @@ const DeliveryBoys = () => {
     //   phone: "854785478",   
     //   email: "johndoe@gmail.com",
     //   shop: "Planetwash Laundry shop",
-    const image = "public/postman 1.png";
+    const image = "/postman 1.png";
     // });
 
   return (
