@@ -82,7 +82,7 @@ const Dashboard = () => {
 
               {/* Right: On track */}
               <p className="text-xs text-green-500 flex items-center pr-2 pt-2">
-                <img src="public/dashboard/TickMark.png" className="mr-1" />
+                <img src="TickMark.png" className="mr-1" />
                 On track
               </p>
             </div>
