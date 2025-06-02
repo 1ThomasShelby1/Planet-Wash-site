@@ -20,7 +20,7 @@ const OngoingOrders = () => {
             <th className="px-4 py-3 border-b font-[400]">Amount</th>
           </tr>
         </thead>
-        <tbody className="text-[#919191] font-sans font-[300] text-xs rounded-lg">
+        <tbody className="text-slate-500 font-sans font-[300] text-xs rounded-lg">
           {Object.values(data).map((ordersArray, i) =>
             ordersArray.map((order, j) => {
               const totalQuantity = order.services?.reduce((acc, service) => {

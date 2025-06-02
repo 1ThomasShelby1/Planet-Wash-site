@@ -8,7 +8,7 @@ const Users = () => {
 
   return (
 <div className="overflow-hidden rounded-xl shadow-md">
-  <table className="w-full table-auto font-sans bg-[#BDB5B530] min-h-52">
+  <table className="w-full table-auto font-sans bg-[#BDB5B530] min-h-[450px]">
     <thead className="text-[#1E1E1E]">
       <tr>
         <th className="p-3 font-[600] align-top text-start">Customer Name</th>

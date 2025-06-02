@@ -107,7 +107,7 @@ const Users2 = () => {
               : 'text-[#919191] hover:text-[#8EDF4C] '
               }`}
           >
-            <IoBagOutline className="mr-2 mt-[2px]" />
+            <IoBagOutline className="mr-2 mt-[5px]" />
             Total Orders
           </button>
 

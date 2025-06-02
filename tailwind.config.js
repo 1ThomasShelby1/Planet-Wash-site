@@ -3,7 +3,12 @@ export default {
   content: ["./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['"DM Sans"', 'sans-serif'], // Default font
+        dmsans: ['"DM Sans"', 'sans-serif'], // Optional custom name
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

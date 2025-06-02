@@ -28,7 +28,7 @@ const RevenueDetails = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-6 p-4 font-sans">
       {/* Card 1: Total Revenue */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-md p-6 flex ">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 flex ">
         <IoCard className="text-[#019ECE] bg-[#6AD2FF45] size-20 p-4 rounded-lg" />
         <div className="flex flex-col py-2 pl-4 ">
           <h2 className="text-xl font-[700] text-[#2B3674] mb-1">Total Revenue</h2>
@@ -39,11 +39,11 @@ const RevenueDetails = () => {
       </div>
 
       {/* Card 2: All Transactions */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-md p-6">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
         <h3 className="text-base font-[700] mb-4">All Transactions</h3>
 
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-left text-[#919191] border border-gray-200">
+          <table className="min-w-full text-sm text-left text-slate-500 border border-gray-200">
             <thead className="bg-gray-100 text-[#1E1E1E]">
               <tr>
                 <th className="px-4 py-3 font-[500]">Customer Name</th>

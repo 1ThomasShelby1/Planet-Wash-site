@@ -16,7 +16,7 @@ const DelBoys = ({ userId }) => {
             <th className="px-2 py-2 text-center font-[400]">Registration Date & Time</th>
           </tr>
         </thead>
-      <tbody className="text-xs text-[#919191] text-center font-[300]">
+      <tbody className="text-xs text-slate-500 text-center font-[300]">
   {data && data.map((customer, index) => (
     <tr key={index} className="border-t">
       <td className="px-2 py-2 whitespace-nowrap">{customer.addressId.name}</td>

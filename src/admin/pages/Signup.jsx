@@ -27,19 +27,6 @@ const SignIn = () => {
       console.error('OTP send failed:', err);
     }
   };
-  // const getAllOrders = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await sendOtp(email).unwrap();
-  //     if (res.message ===
-  //       "OTP sent to email") {
-  //       toast.success("OTP sent successfully!"); setStep(2);
-  //     }
-  //   } catch (err) {
-  //     toast.error("Failed to send OTP.");
-  //     console.error('OTP send failed:', err);
-  //   }
-  // };
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
@@ -89,7 +76,7 @@ const SignIn = () => {
               />
             </div>
             {/* OTP Input (Step 2 only) */}
-            <div>
+            {step === 2 && <div>
               <label className="text-sm md:text-base font-[400] font-sans">
                 Enter OTP Sent On Your Mail
               </label>
@@ -130,12 +117,12 @@ const SignIn = () => {
                   </button>
                 </div>
               )}
-            </div>
+            </div>}
             {/* Button */}
             <div className="text-center">
               <button
                 type="submit"
-                className="p-2 px-4 mb-2 bg-[#8EDF4C] text-white font-sans font-semibold text-sm rounded-xl hover:bg-[#031a30] transition"
+                className="p-2 px-4 mb-2 bg-[#8EDF4C] text-white text-sm rounded-xl hover:bg-[#031a30] transition"
               >
                 {step === 1 ? 'Send OTP' : 'Sign In'}
               </button>
@@ -149,7 +136,7 @@ const SignIn = () => {
             <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#6AD2FF45] opacity-100 rounded-full"></div>
             <div className="absolute -bottom-12 -right-12 w-36 h-36 bg-[#6AD2FF45] opacity-100 rounded-full"></div>
           </div>
-          <h1 className="text-5xl font-DM Sans font-bold z-10">Sign In</h1>
+          <h1 className="text-5xl font-dmsans  z-10">Sign In</h1>
         </div>
       </div>
     </div>

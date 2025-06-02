@@ -21,7 +21,7 @@ const TotalOrders = ({ userId }) => {
         <th className="px-4 py-3 border-b font-[400]">Amount</th>
       </tr>
     </thead>
-    <tbody className="text-[#919191] text-xs text-center font-[300]">
+    <tbody className="text-slate-500 text-xs text-center font-[300]">
       {mydata.map((order) => {
         const totalQuantity = order.services?.reduce((acc, service) => {
           return acc + (service.products?.reduce((pAcc, p) => pAcc + (p.quantity || 0), 0) || 0);

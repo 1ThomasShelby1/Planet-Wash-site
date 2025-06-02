@@ -48,7 +48,7 @@ const TotalRevenue = () => {
             <th className="px-4 py-2 font-[400]">Amount</th>
           </tr>
         </thead>
-        <tbody className="text-xs max-h-[100px] overflow-y-auto text-[#919191]  ">
+        <tbody className="text-xs max-h-[100px] overflow-y-auto text-slate-500 ">
           {customers.map((customer, index) => (
             <tr key={index} className="border-t text-[#919191] font-[300]">
               <td className="px-4 py-2 whitespace-nowrap">{customer.name}</td>
