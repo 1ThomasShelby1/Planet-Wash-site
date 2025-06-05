@@ -23,12 +23,12 @@ const DeliveryBoys = () => {
         {data && data.map((boy, index) => (
           <div
             key={index}
-            className="bg-white flex items-start p-4 rounded-xl shadow-md relative"
+            className="bg-white flex items-start p-4 rounded-xl shadow-md relative "
           >
             <img
               src={image}
               alt={boy.Name}
-              className="w-16 h-16 rounded-full object-cover mt-2 shadow-sm"
+              className="w-14 h-14 rounded-full object-cover mt-2 shadow-sm"
             />
             <div className="ml-4">
               <h3 className="text-lg font-[600] text-gray-900">{boy.Name}</h3>

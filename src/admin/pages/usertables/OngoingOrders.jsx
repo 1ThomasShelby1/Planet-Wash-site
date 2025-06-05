@@ -4,8 +4,12 @@ import { useGetAllOrderByStatusQuery } from '../../redux/auth/AuthApi';
 const OngoingOrders = () => {
   const { data, isLoading, error } = useGetAllOrderByStatusQuery('ongoing');
 
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading orders</div>;
+
+  localStorage.setItem("RRB", data.orders.length);
+
 
   return (
     <div className="">

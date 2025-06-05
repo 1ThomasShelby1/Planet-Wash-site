@@ -6,7 +6,7 @@ const DelBoys = ({ userId }) => {
   const { data } = useGetAllDeliveryBoysByShopIdQuery(userId)
 
   return (
-    <div className="overflow-x-auto py-2 ">
+    <div className="overflow-auto py-2 ">
       <table className="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
         <thead className="bg-gray-100 text-[#1E1E1E] text-sm ">
           <tr className="font-sans">

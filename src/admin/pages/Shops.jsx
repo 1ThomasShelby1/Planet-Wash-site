@@ -5,18 +5,14 @@ import { Link } from "react-router-dom";
 import { useDeleteShopMutation, useGetAllShopsQuery, } from "../redux/auth/AuthApi";
 
 const ShopsWithTabs = () => {
-  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const { data, isLoading, error } = useGetAllShopsQuery();
-
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [deleteShop] = useDeleteShopMutation();
-
 
   if (isLoading) return <div>Loading</div>;
   if (error) return <div>error {error.message}</div>;
   if (!data || !Array.isArray(data.shops)) return <div>No Shops Available</div>;
-
-
 
   const handleCardClick = (index) => {
     setSelectedIndex(index);
@@ -25,7 +21,9 @@ const ShopsWithTabs = () => {
   const handleDelete = async (shopId, e) => {
     e.preventDefault(); // Prevent navigation
     try {
-      await deleteShop(shopId).unwrap();
+      const res = await deleteShop(shopId).unwrap();
+      console.log(res);
+
       // Optionally, display a success message or perform additional actions
     } catch (error) {
       console.error("Failed to delete the shop:", error);
@@ -34,9 +32,9 @@ const ShopsWithTabs = () => {
   };
 
   return (
-    <div className="">
+    <div className="w-full flex justify-center">
       {!Number.isInteger(selectedIndex) && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-hidden">
           {data.shops.map((shop, index) => (
             <Link
               to={`/shopdetails/${shop._id}`}

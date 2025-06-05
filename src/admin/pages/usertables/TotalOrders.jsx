@@ -6,7 +6,7 @@ const TotalOrders = ({ userId }) => {
   const mydata = data?.orders || [];
 
   return (
-   <div className="w-full overflow-x-hidden">
+   <div className="w-full">
   <table className="w-full bg-white border border-gray-200 rounded-lg shadow text-sm font-sans">
     <thead className="bg-gray-100 text-gray-800">
       <tr>

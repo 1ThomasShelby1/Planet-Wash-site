@@ -35,7 +35,7 @@ const TotalRevenue = () => {
 
 
   return (
-    <div className="max-w-full py-2 overflow-y-auto max-h-[200px] ">
+    <div className="max-w-full py-2 overflow-auto max-h-[200px] ">
       <table className=" bg-white  h-56  border border-gray-200 rounded-lg  shadow-sm">
         <thead className="bg-gray-100 text-[#1E1E1E] overflow-y-auto max-h-[200px]">
           <tr className='whitespace-nowrap text-sm font-sans overflow-auto'>

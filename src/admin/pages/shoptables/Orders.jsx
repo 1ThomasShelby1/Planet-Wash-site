@@ -3,13 +3,10 @@ import { useGetAllOrderByShopIdQuery } from '../../redux/auth/AuthApi'
 
 const Orders = ({ userId }) => {
 
-
   const { data } = useGetAllOrderByShopIdQuery(userId)
 
-
-
   return (
-    <div className="overflow-x-auto py-2">
+    <div className="overflow-auto">
       <table className="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
         <thead className="bg-gray-100 text-[#1E1E1E] text-sm">
           <tr className='whitespace-nowrap font-sans '>

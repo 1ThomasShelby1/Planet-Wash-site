@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://planetwash.onrender.com' }),
+  tagTypes: ["Shop"],
   endpoints: (builder) => ({
     sendOtp: builder.mutation({
       query: (email) => ({
@@ -26,7 +27,9 @@ export const authApi = createApi({
     }),
 
     getAllShops: builder.query({
-      query: () => '/shop/auth/shops',
+      query: () => ({
+        url: '/shop/auth/shops',
+      }),
       providesTags: (result) =>
         result
           ? [
@@ -35,22 +38,37 @@ export const authApi = createApi({
           ]
           : [{ type: 'Shop', id: 'LIST' }],
     }),
+
     deleteShop: builder.mutation({
       query: (shopId) => ({
         url: `/shop/auth/delete/${shopId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, shopId) => [
-        { type: 'Shop', id: shopId },
-        { type: 'Shop', id: 'LIST' },
-      ],
+      async onQueryStarted(shopId, { dispatch, queryFulfilled }) {
+        // Optimistically update the cache
+        const patchResult = dispatch(
+          api.util.updateQueryData('getAllShops', undefined, (draft) => {
+            return {
+              ...draft,
+              shops: draft.shops.filter((shop) => shop._id !== shopId),
+            };
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
+
     getUsersTotalOrders: builder.query({
       query: (userId) => ({
         url: `/user/order/orders/${userId}`,
         method: 'GET',
       }),
     }),
+
     getAllDeliveryBoy: builder.query({
       query: () => ({
         url: '/delivery/auth/getall',
@@ -64,27 +82,35 @@ export const authApi = createApi({
         method: 'GET',
       }),
     }),
+
     getAllOrderByShopId: builder.query({
       query: (shopId) => ({
         url: `/user/order/shop/${shopId}`,
         method: 'GET',
       }),
     }),
+
     getAllDeliveryBoysByShopId: builder.query({
       query: (shopId) => ({
         url: `/user/order/shop/${shopId}`,
         method: 'GET',
       }),
     }),
-
-  }),
-});
+    getAllOrders: builder.query({
+      query: () => ({
+        url: `/user/order/all`,
+        method: 'GET',
+      }),
+    }),
+  })
+})
 
 export const {
   useSendOtpMutation,
   useVerifyOtpMutation,
   useGetAllUsersQuery,
   useGetAllShopsQuery,
+  useGetAllOrdersQuery,
   useDeleteShopMutation,
   useGetUsersTotalOrdersQuery,
   useGetAllDeliveryBoyQuery,
