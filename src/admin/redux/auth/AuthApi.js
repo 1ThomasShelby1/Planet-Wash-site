@@ -61,6 +61,12 @@ export const authApi = createApi({
         }
       },
     }),
+    deleteDeliveryBoy: builder.mutation({
+      query: (deliveryBoyId) => ({
+        url: `/delivery/auth/delivery-boy/${deliveryBoyId}`,
+        method: 'DELETE',
+      }),
+    }),
 
     getUsersTotalOrders: builder.query({
       query: (userId) => ({
@@ -117,4 +123,5 @@ export const {
   useGetAllOrderByStatusQuery,
   useGetAllOrderByShopIdQuery,
   useGetAllDeliveryBoysByShopIdQuery,
+  useDeleteDeliveryBoyMutation,
 } = authApi;
