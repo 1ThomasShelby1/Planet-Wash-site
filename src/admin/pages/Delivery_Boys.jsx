@@ -9,6 +9,9 @@ const DeliveryBoys = () => {
    if (isLoading) return <div>Loading ....</div>;
   if (error) return <div>Error{error.message}</div>;
 
+  console.log(data);
+  
+
     // const deliveryBoys = new Array(9).fill({
     //   name: "John Doe",
     //   phone: "854785478",   
@@ -34,7 +37,7 @@ const DeliveryBoys = () => {
               <h3 className="text-lg font-[600] text-gray-900">{boy.Name}</h3>
               <p className="text-gray-700 font-[400] text-sm">{boy.contactNo}</p>
               <p className="text-gray-700 font-[400] text-sm ">{boy.email}</p>
-              <p className="text-gray-700 font-[400] text-sm">{boy.shopId.shopName}</p>
+              <p className="text-gray-700 font-[400] text-sm">{boy?.shopId?.shopName}</p>
               {/* break-all */}
             </div>
             <button className="absolute top-4 right-4 text-red-500 hover:text-red-600">
