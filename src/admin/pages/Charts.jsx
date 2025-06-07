@@ -27,7 +27,6 @@ import { FaRegCalendar } from 'react-icons/fa';
 import { RiBarChartFill } from 'react-icons/ri';
 import { IoMdArrowDropup } from 'react-icons/io';
 
-
 ChartJS.register(
   LineElement,
   BarElement,
@@ -49,7 +48,7 @@ const DashBoard_Graphs = () => {
     const startDate = new Date(currentYear, 0, 1);
     const endDate = new Date(currentYear, 11, 31);
 
-    // Init months with 0
+    // Initialize months
     for (
       let date = startOfMonth(startDate);
       isBefore(date, endOfMonth(endDate)) || date.getTime() === endOfMonth(endDate).getTime();
@@ -59,7 +58,7 @@ const DashBoard_Graphs = () => {
       monthlyTotals[monthKey] = 0;
     }
 
-    // Init weeks with 0
+    // Initialize weeks
     for (
       let date = startOfWeek(startDate, { weekStartsOn: 1 });
       isBefore(date, endOfMonth(endDate)) || date.getTime() === endOfMonth(endDate).getTime();
@@ -69,7 +68,7 @@ const DashBoard_Graphs = () => {
       weeklyTotals[weekKey] = 0;
     }
 
-    // Fill data from API
+    // Fill totals
     data?.forEach((order) => {
       const date = parseISO(order.createdAt);
       if (isBefore(date, startDate) || isAfter(date, endDate)) return;
@@ -82,22 +81,19 @@ const DashBoard_Graphs = () => {
       weeklyTotals[weekKey] += order.totalAmount;
     });
 
-    // Current month bounds
     const currentMonthStart = startOfMonth(new Date());
     const currentMonthEnd = endOfMonth(new Date());
 
-    // Filter weeks starting in current month
     const filteredWeeklyTotals = Object.entries(weeklyTotals).reduce((acc, [weekLabel, total]) => {
       const weekStartDate = parse(weekLabel, 'dd MMM yyyy', new Date());
       if (
-        (weekStartDate.getTime() === currentMonthStart.getTime() || weekStartDate > currentMonthStart) &&
-        (weekStartDate.getTime() === currentMonthEnd.getTime() || weekStartDate < currentMonthEnd)
+        (weekStartDate >= currentMonthStart) &&
+        (weekStartDate <= currentMonthEnd)
       ) {
         acc[weekLabel] = total;
       }
       return acc;
     }, {});
-
 
     return {
       monthlyData: {
@@ -129,7 +125,6 @@ const DashBoard_Graphs = () => {
         ],
       },
     };
-
   }, [data]);
 
   const lineOptions = {
@@ -140,19 +135,15 @@ const DashBoard_Graphs = () => {
     },
     scales: {
       x: {
-        title: { display: false, text: 'Month' },
         ticks: {
-          callback: (val) => {
-            // val is index here
-            return monthlyData.labels && monthlyData.labels[val]
+          callback: (val) =>
+            monthlyData.labels && monthlyData.labels[val]
               ? monthlyData.labels[val].split(' ')[0]
-              : '';
-          },
+              : '',
         },
       },
       y: {
         beginAtZero: true,
-        title: { display: false, text: 'Revenue (₹)' },
       },
     },
   };
@@ -161,83 +152,62 @@ const DashBoard_Graphs = () => {
     responsive: true,
     plugins: {
       legend: { position: 'top' },
-      title: { display: false, text: 'Weekly Revenue' },
+      title: { display: false },
     },
     scales: {
       x: {
-        title: { display: false, text: 'Week Starting' },
         ticks: {
-          callback: (val) => {
-            // val is index here
-            return weeklyData.labels && weeklyData.labels[val]
+          callback: (val) =>
+            weeklyData.labels && weeklyData.labels[val]
               ? weeklyData.labels[val].split(' ')[0]
-              : '';
-          },
+              : '',
         },
       },
       y: {
         beginAtZero: true,
-        title: { display: false, text: 'Revenue (₹)' },
       },
     },
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 animate-pulse">
+        <div className="h-[280px] bg-gray-100 rounded-xl" />
+        <div className="h-[280px] bg-gray-100 rounded-xl" />
+      </div>
+    );
+  }
+
   if (error) return <div>Error: {error.message}</div>;
+
+  const totalMonthlySpend = monthlyData.datasets[0]?.data?.reduce((a, b) => a + b, 0) || 0;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
       {/* Line Chart */}
-      <div className="bg-white  rounded-xl p-2 shadow-sm h-[280px]">
-
-        <div className='flex justify-around'>
+      <div className="bg-white rounded-xl p-2 shadow-sm h-[280px]">
+        <div className="flex justify-between items-center px-2 mb-1">
           <div>
-            <h1 className='text-xs text-[#A3AED0] whitespace-nowrap ml-2'>Total Spents</h1>
-            <h className="text-2xl text-[#2B3674] font-bold">Rs.37.5K</h>
+            <h1 className="text-xs text-[#A3AED0]">Total Spents</h1>
+            <h2 className="text-2xl text-[#2B3674] font-bold">
+              ₹{totalMonthlySpend.toLocaleString()}
+            </h2>
           </div>
-          <div className='block w-fit'>
-            <h3 className="flex text-sm p-1 text-[#A3AED0] bg-[#F4F7FE] rounded-md">
-              <FaRegCalendar className="mr-1 " />
-              This month
-            </h3>
-          </div>
-          <div>
-            {/* <RiBarChartFill className='bg-[#F4F7FE] rounded-sm ml-14' /> */}
-            <p className="text-sm text-[#05CD99] flex items-center pr-2 ">
-              <img src="/TickMark.png" className="mr-1" />
-              On track
-            </p>
-            <div className='flex'>
-              <IoMdArrowDropup color='#05CD99' className='ml-2 text-xs' />
-              <h1 className='text-xs text-[#05CD99]'>
-                +2.45%</h1>
-            </div>
+          <div className="flex items-center gap-1 text-sm text-green-500">
+            <IoMdArrowDropup className="text-xl" />
+            <span>+8.4%</span>
           </div>
         </div>
-        <div className="flex justify-between items-center ml-3">
-          <div className='flex'>
-
-          </div>
-
-        </div>
-
-        <div className=' w-full px-6  '>
-          <div className=' w-full ' >
-            <Line data={monthlyData} options={lineOptions} />
-          </div>
-        </div>
+        <Line data={monthlyData} options={lineOptions} />
       </div>
+
       {/* Bar Chart */}
-      <div className="bg-white rounded-xl px-2 shadow-sm h-[280px] ">
-        <div className="flex justify-between items-center  h-10">
-          <h2 className="text-md font-bold text-[#1B2559] ">Weekly Revenue</h2>
-          <div className='bg-[#F4F7FE] rounded-sm p-1'>
-            <RiBarChartFill />
-          </div>
+      <div className="bg-white rounded-xl p-2 shadow-sm h-[280px]">
+        <div className="flex justify-between items-center px-2 mb-1">
+          <h1 className="text-xs text-[#A3AED0]">Weekly Revenue</h1>
+          <RiBarChartFill className="text-[#7F56D9]" />
         </div>
-        <div className='w-full h-full'>
-          <Bar data={weeklyData} options={barOptions} />
-        </div>
+        <Bar data={weeklyData} options={barOptions} />
       </div>
     </div>
   );

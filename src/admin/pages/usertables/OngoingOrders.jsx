@@ -8,7 +8,6 @@ const OngoingOrders = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading orders</div>;
 
-  localStorage.setItem("RRB", data.orders.length);
 
 
   return (
