@@ -4,6 +4,8 @@ import { useGetUsersTotalOrdersQuery } from '../../redux/auth/AuthApi';
 const TotalOrders = ({ userId }) => {
   const { data } = useGetUsersTotalOrdersQuery(userId);
   const mydata = data?.orders || [];
+  console.log(mydata);
+  
 
   return (
    <div className="w-full">

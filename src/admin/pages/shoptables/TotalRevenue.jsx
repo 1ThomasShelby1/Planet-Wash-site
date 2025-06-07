@@ -51,52 +51,18 @@ const TotalRevenue = () => {
         <tbody className="text-xs max-h-[100px] overflow-y-auto text-slate-500 ">
           {customers.map((customer, index) => (
             <tr key={index} className="border-t text-[#919191] font-[300]">
-              <td className="px-4 py-2 whitespace-nowrap">{customer.name}</td>
-              <td className="px-4 py-2 whitespace-nowrap">{customer.phone}</td>
-              <td className="px-4 py-2 whitespace-nowrap">{customer.email}</td>
-              <td className="px-4 py-2 whitespace-nowrap">{customer.service}</td>
-              <td className="px-4 py-2 ">{customer.address}</td>
-              <td className="px-4 py-2">{customer.Payment}</td>
-              <td className="px-4 py-2 whitespace-nowrap text-[#399703]">{customer.amount}</td>
+              <td className="px-4 py-2 whitespace-nowrap">{customer?.name}</td>
+              <td className="px-4 py-2 whitespace-nowrap">{customer?.phone}</td>
+              <td className="px-4 py-2 whitespace-nowrap">{customer?.email}</td>
+              <td className="px-4 py-2 whitespace-nowrap">{customer?.service}</td>
+              <td className="px-4 py-2 ">{customer?.address}</td>
+              <td className="px-4 py-2">{customer?.Payment}</td>
+              <td className="px-4 py-2 whitespace-nowrap text-[#399703]">{customer?.amount}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-    // <div className="max-w-full py-2">
-    //   <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-    //     <thead className="bg-gray-100 text-[#1E1E1E]">
-    //       <tr className="whitespace-nowrap font-sans">
-    //         <th className="px-4 py-2 text-left font-[600]">Customer</th>
-    //         <th className="px-4 py-2 text-left font-[600]">Contact No</th>
-    //         <th className="px-4 py-2 text-left font-[600]">Email</th>
-    //         <th className="px-4 py-2 text-left font-[600]">Service Type</th>
-    //         <th className="px-4 py-2 text-left font-[600]">Address</th>
-    //         <th className="px-4 py-2 text-left font-[600]">Payment Method</th>
-    //         <th className="px-4 py-2 text-left font-[600]">Amount</th>
-    //       </tr>
-    //     </thead>
-    //   </table>
-
-    //   {/* Scrollable tbody wrapper */}
-    //   <div className="max-h-[100px] overflow-y-auto">
-    //     <table className="min-w-full">
-    //       <tbody className="text-sm text-[#919191]">
-    //         {customers.map((customer, index) => (
-    //           <tr key={index} className="border-t font-[500]">
-    //             <td className="px-4 py-2 whitespace-nowrap">{customer.name}</td>
-    //             <td className="px-4 py-2 whitespace-nowrap">{customer.phone}</td>
-    //             <td className="px-4 py-2 whitespace-nowrap">{customer.email}</td>
-    //             <td className="px-4 py-2 whitespace-nowrap">{customer.service}</td>
-    //             <td className="px-4 py-2">{customer.address}</td>
-    //             <td className="px-4 py-2">{customer.Payment}</td>
-    //             <td className="px-4 py-2 whitespace-nowrap text-[#399703]">{customer.amount}</td>
-    //           </tr>
-    //         ))}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // </div>
 
   )
 }

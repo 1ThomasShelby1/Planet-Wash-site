@@ -7,10 +7,10 @@ const Users = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="overflow-hidden rounded-xl shadow-md font-sans">
+    <div className="overflow-hidden rounded-xl shadow-md font-sans h-[80vh] bg-white">
       {/* Table for md and up */}
       <div className="hidden md:block overflow-x-auto">
-        <table className="w-full table-auto bg-[#BDB5B530] min-h-[450px]">
+        <table className="w-full table-auto bg-[#BDB5B530]">
           <thead className="text-[#1E1E1E]">
             <tr>
               <th className="p-3 font-[600] align-top text-start">Customer Name</th>
@@ -22,15 +22,15 @@ const Users = () => {
           </thead>
           <tbody className="bg-white text-start">
             {allUsers?.map((customer, _id) => (
-              <tr key={_id} className="hover:bg-gray-50 text-[#919191]">
-                <td className="p-4 align-top">
+              <tr key={_id} className="hover:bg-gray-50 text-[#919191] ">
+                <td className="p-4 ">
                   <Link to={`/userdetails/${customer._id}`} className="hover:text-blue-600">
                     {customer.Name}
                   </Link>
                 </td>
-                <td className="p-4 align-top">{customer.contactNo}</td>
-                <td className="p-4 align-top">{customer.email}</td>
-                <td className="p-4 align-top">
+                <td className="p-4 ">{customer.contactNo}</td>
+                <td className="p-4">{customer.email}</td>
+                <td className="p-4">
                   <div className="flex">
                     <p>
                       {new Date(customer.createdAt).toLocaleDateString('en-IN', {
@@ -48,7 +48,7 @@ const Users = () => {
                     </p>
                   </div>
                 </td>
-                <td className="p-4 align-top">
+                <td className="p-4">
                   <button className="text-red-500 hover:text-red-700">
                     <FaTrash />
                   </button>

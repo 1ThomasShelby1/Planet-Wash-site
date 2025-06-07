@@ -19,13 +19,13 @@ const DelBoys = ({ userId }) => {
       <tbody className="text-xs text-slate-500 text-center font-[300]">
   {data && data.map((customer, index) => (
     <tr key={index} className="border-t">
-      <td className="px-2 py-2 whitespace-nowrap">{customer.addressId.name}</td>
-      <td className="px-2 py-2 whitespace-nowrap">{customer.addressId.contactNo}</td>
-      <td className="px-2 py-2 whitespace-nowrap">{customer.addressId.email}</td>
+      <td className="px-2 py-2 whitespace-nowrap">{customer?.addressId?.name}</td>
+      <td className="px-2 py-2 whitespace-nowrap">{customer?.addressId?.contactNo}</td>
+      <td className="px-2 py-2 whitespace-nowrap">{customer?.addressId?.email}</td>
       <td className="px-2 py-2 whitespace-nowrap">
         <div className="flex justify-center items-center gap-1">
           <span>
-            {new Date(customer.addressId.createdAt).toLocaleDateString('en-IN', {
+            {new Date(customer?.addressId?.createdAt).toLocaleDateString('en-IN', {
               day: '2-digit',
               month: 'short',
               year: 'numeric',
@@ -33,7 +33,7 @@ const DelBoys = ({ userId }) => {
           </span>
           <span>&</span>
           <span>
-            {new Date(customer.addressId.createdAt).toLocaleTimeString('en-IN', {
+            {new Date(customer?.addressId?.createdAt).toLocaleTimeString('en-IN', {
               hour: '2-digit',
               minute: '2-digit',
             })}

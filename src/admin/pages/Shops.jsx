@@ -33,7 +33,7 @@ const ShopsWithTabs = () => {
 
   return (
     <div className="w-full flex justify-center">
-      {!Number.isInteger(selectedIndex) && (
+      {!Number?.isInteger(selectedIndex) && (
         <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-hidden">
           {data.shops.map((shop, index) => (
             <Link
@@ -50,7 +50,7 @@ const ShopsWithTabs = () => {
               <div className="p-4 space-y-2">
                 <h2 className="flex items-center font-[500]">
                   <FaStore className="mr-3  text-[#019ECE] " />
-                  {shop.shopName}
+                  {shop?.shopName}
                 </h2>
                 <p className="flex items-center text-[#BDB5B5]  text-xs font-[400]">
                   <FaMapMarkerAlt className="mr-3 text-[#019ECE]" />

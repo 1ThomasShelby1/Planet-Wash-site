@@ -3,7 +3,7 @@ import { FaCalendarAlt, FaClipboardList, FaShoppingBag, FaUser } from "react-ico
 import { useParams } from "react-router-dom";
 import TotalOrders from "./usertables/TotalOrders";
 import OngoingOrders from "./usertables/OngoingOrders";
-import { useGetAllUsersQuery, useGetUsersTotalOrdersQuery } from "../redux/auth/AuthApi";
+import { useGetAllOrderByStatusQuery, useGetAllUsersQuery, useGetUsersTotalOrdersQuery } from "../redux/auth/AuthApi";
 import { IoBagOutline } from "react-icons/io5";
 
 const Users2 = () => {
@@ -11,7 +11,9 @@ const Users2 = () => {
 
   const [activeTab, setActiveTab] = useState('orders');
 
-  const token = localStorage.getItem("RRB");
+  const { data : ongoingdata, isLoading: ongoingLoading, error: ongoingError } = useGetAllOrderByStatusQuery('ongoing');
+
+ const token = ongoingdata?.orders?.length
 
   const { data } = useGetUsersTotalOrdersQuery(id);
   const mydata = data?.orders || [];
@@ -27,7 +29,7 @@ const Users2 = () => {
       <div className="bg-white rounded-2xl shadow p-6 flex flex-col md:flex-row md:justify-center md:items-center gap-4 font-sans">
         {/* User Info */}
         <div className="flex">
-        <FaUser className="text-5xl text-[#8EDF4C] mr-3 mt-4" />
+          <FaUser className="text-5xl text-[#8EDF4C] mr-3 mt-4" />
           <div className="">
             <h2 className="text-2xl font-[400] text-black font-sa">{post.Name}</h2>
             <p className="text-base text-[#919191]">{post.contactNo}</p>
