@@ -2,8 +2,9 @@ import React from 'react';
 import { useGetAllOrderByStatusQuery } from '../../redux/auth/AuthApi';
 
 const OngoingOrders = () => {
-  const { data, isLoading, error } = useGetAllOrderByStatusQuery('ongoing');
 
+
+  const { data, isLoading, error } = useGetAllOrderByStatusQuery('ongoing');
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading orders</div>;
@@ -12,7 +13,7 @@ const OngoingOrders = () => {
 
   return (
     <div className="">
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow font-sans text-center">
+      <table className="min-w-full bg-white border border-gray-200 rounded-lg  font-sans text-center">
         <thead className="bg-gray-100 text-[#1E1E1E] text-sm">
           <tr>
             <th className="px-4 py-3 border-b font-[400]">Order Date & Time</th>

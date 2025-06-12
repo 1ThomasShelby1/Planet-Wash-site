@@ -20,7 +20,7 @@ const Users = () => {
               <th className="p-3 font-[600] align-top text-start">Action</th>
             </tr>
           </thead>
-          <tbody className="bg-white text-start">
+          <tbody className="bg-white text-start font-[300]">
             {allUsers?.map((customer, _id) => (
               <tr key={_id} className="hover:bg-gray-50 text-[#919191] ">
                 <td className="p-4 ">

@@ -25,7 +25,7 @@ const Users2 = () => {
 
   return (
 
-    <div className="w-[355px] sm:w-[990px]">
+    <div className="w-[355px] sm:w-[990px] overflow-hidden">
       <div className="bg-white rounded-2xl shadow p-6 flex flex-col md:flex-row md:justify-center md:items-center gap-4 font-sans">
         {/* User Info */}
         <div className="flex">
@@ -110,14 +110,14 @@ const Users2 = () => {
         </div>
 
         {/* Tab Content   TotalOrders */}
-        <div className="p-2">
+        <div className="p-2 ">
           {activeTab === 'orders' && (
-            <div className="overflow-auto max-h-[400px]">
+            <div className="overflow-auto h-[255px]">
               <TotalOrders userId={id} />
             </div>
           )}
           {activeTab === 'revenue' && (
-            <div className="overflow-auto max-h-[300px]">
+            <div className="overflow-auto h-[255px]">
               <OngoingOrders userId={id} />
             </div>
           )}

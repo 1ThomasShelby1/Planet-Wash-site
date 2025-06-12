@@ -46,7 +46,6 @@ const Dashboard = () => {
     },
   ];
 
-
   return (
     <div className="space-y-2 overflow-y-hidden bg-[#FAF7F7] ">
 

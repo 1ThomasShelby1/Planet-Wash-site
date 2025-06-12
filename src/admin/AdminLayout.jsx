@@ -20,7 +20,7 @@ const AdminLayout = () => {
         }`}
       >
         <Header toggleSidebar={toggleSidebar} />
-        <main className="flex-1 overflow-y-auto bg-[#FAF7F7] p-4">
+        <main className="flex-1 overflow-auto bg-[#FAF7F7] p-4">
           <Outlet />
         </main>
       </div>

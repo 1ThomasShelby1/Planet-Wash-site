@@ -32,8 +32,8 @@ const Shops2 = () => {
 
   return (
     <div>
-      <div className="max-w-[360px] sm:max-w-full mx-auto">
-        <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="w-[355px] sm:w-[990px] overflow-hidden mx-auto">
+        <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 ">
           {/* Container for two cards: image and details */}
           <div className="flex flex-col sm:flex-row">
             {/* 1st Card: Shop Image */}
@@ -97,57 +97,56 @@ const Shops2 = () => {
           <hr className="border-t border-[#D9D9D9] my-2" />
 
           {/* Tab buttons */}
-          <div className="p-1 space-x-2 font-sans">
+          <div className="p-2 space-x-2 font-sans">
             <button
               onClick={() => setActiveTab('orders')}
-              className={`rounded-md p-1 font-semibold text-sm px-4 transition ${
-                activeTab === 'orders'
+              className={`rounded-md p-1 font-semibold text-sm px-4 transition ${activeTab === 'orders'
                   ? 'bg-[#8EDF4C] text-white'
                   : 'bg-[#F4F7FE] text-[#919191] hover:bg-[#8EDF4C] hover:text-white'
-              }`}
+                }`}
             >
               Total Orders
             </button>
             <button
               onClick={() => setActiveTab('revenue')}
-              className={`rounded-md p-1 font-semibold text-sm px-4 transition ${
-                activeTab === 'revenue'
+              className={`rounded-md p-1 font-semibold text-sm px-4 transition ${activeTab === 'revenue'
                   ? 'bg-[#8EDF4C] text-white'
                   : 'bg-[#F4F7FE] text-[#919191] hover:bg-[#8EDF4C] hover:text-white'
-              }`}
+                }`}
             >
               Revenue
             </button>
             <button
               onClick={() => setActiveTab('delivery')}
-              className={`rounded-md p-1 font-semibold text-sm px-4 transition ${
-                activeTab === 'delivery'
+              className={`rounded-md p-1 font-semibold text-sm px-4 transition ${activeTab === 'delivery'
                   ? 'bg-[#8EDF4C] text-white'
                   : 'bg-[#F4F7FE] text-[#919191] hover:bg-[#8EDF4C] hover:text-white'
-              }`}
+                }`}
             >
               Delivery Boys
             </button>
           </div>
 
           {/* Tab content */}
-          <div className="p-2 font-sans">
+          {/* Tab content */}
+          <div className="p-2 h-48">
             {activeTab === 'orders' && (
-              <div className="overflow-auto max-h-[300px]">
+              <div className="overflow-auto h-[255px] scrollbar-hide">
                 <Orders userId={id} />
               </div>
             )}
             {activeTab === 'revenue' && (
-              <div className="overflow-auto max-h-[200px]">
+              <div className="overflow-auto h-[255px]">
                 <TotalRevenue />
               </div>
             )}
             {activeTab === 'delivery' && (
-              <div className="overflow-auto max-h-[300px]">
+              <div className="overflow-auto h-[255px]">
                 <DelBoys userId={id} />
               </div>
             )}
           </div>
+
         </div>
       </div>
     </div>

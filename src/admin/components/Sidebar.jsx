@@ -1,16 +1,20 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BsHandbag } from "react-icons/bs"
-import { LuUsers } from "react-icons/lu"
 import { FaBell, FaStore } from "react-icons/fa";
+import { HiUsers } from "react-icons/hi2";
+import { BsFillHandbagFill } from "react-icons/bs";
 import { IoMdHome } from 'react-icons/io';
+import { MdLocalOffer } from "react-icons/md";
+
 
 const menuItems = [
     { name: "Home", path: "/", icon: <IoMdHome /> },
     { name: "Shops", path: "/shops", icon: <FaStore /> },
-    { name: "Users", path: "/users", icon: <LuUsers /> },
-    { name: "Revenue", path: "/revenue", icon: <BsHandbag /> },
+    { name: "Users", path: "/users", icon: <HiUsers /> },
+    { name: "Revenue", path: "/revenue", icon: <BsFillHandbagFill /> },
     { name: "Delivery Boys", path: "/delivery_boys", icon: <FaBell /> },
+    { name: "Add Offer", path: "/add_offer", icon: <MdLocalOffer />
+ },
 
 ];
 

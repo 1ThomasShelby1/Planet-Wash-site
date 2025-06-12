@@ -183,10 +183,10 @@ const DashBoard_Graphs = () => {
   const totalMonthlySpend = monthlyData.datasets[0]?.data?.reduce((a, b) => a + b, 0) || 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 ">
       {/* Line Chart */}
       <div className="bg-white rounded-xl p-2 shadow-sm h-[280px]">
-        <div className="flex justify-between items-center px-2 mb-1">
+        <div className="flex justify-between items-center px-2 -mb-5">
           <div>
             <h1 className="text-xs text-[#A3AED0]">Total Spents</h1>
             <h2 className="text-2xl text-[#2B3674] font-bold">
@@ -203,7 +203,7 @@ const DashBoard_Graphs = () => {
 
       {/* Bar Chart */}
       <div className="bg-white rounded-xl p-2 shadow-sm h-[280px]">
-        <div className="flex justify-between items-center px-2 mb-1">
+        <div className="flex justify-between items-center px-2 mb-4">
           <h1 className="text-xs text-[#A3AED0]">Weekly Revenue</h1>
           <RiBarChartFill className="text-[#7F56D9]" />
         </div>
