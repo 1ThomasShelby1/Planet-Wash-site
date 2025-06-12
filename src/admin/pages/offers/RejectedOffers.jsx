@@ -1,16 +1,15 @@
-// TotalOffers.jsx
-import React from 'react';
 import { useDeleteOffersMutation, useGetAllOffersQuery } from '../../redux/auth/AuthApi';
 import { MdDelete } from 'react-icons/md';
 
-const TotalOffers = () => {
+const RejectedOffers = () => {
+
   const { data: om, isLoading, error } = useGetAllOffersQuery();
   const [deleteOffer] = useDeleteOffersMutation();
 
   if (isLoading) return <div className="text-center py-10">Loading...</div>;
   if (error) return <div className="text-center py-10 text-red-500">Error: {error.message}</div>;
 
-  const approved = om?.data?.filter(o => o.status === 'approved');
+  const approved = om?.data?.filter(o => o.status === 'rejected');
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 bg-white min-h-[450px] rounded-md">
@@ -40,8 +39,7 @@ const TotalOffers = () => {
           </div>
         </div>
       ))}
-    </div>
-  );
-};
+    </div>)
+}
 
-export default TotalOffers;
+export default RejectedOffers

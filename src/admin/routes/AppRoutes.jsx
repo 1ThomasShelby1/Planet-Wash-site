@@ -10,7 +10,8 @@ import Delivery_Boys from '../pages/Delivery_Boys'
 import Shops2 from '../pages/Shops2'
 import Users2 from '../pages/Users2'
 import Add_Offer from '../pages/Add_Offer'
-import TotalOffers from '../pages/offers/TotalOffers'
+import ApprovedOffers from '../pages/offers/ApprovedOffers'
+import RejectedOffers from '../pages/offers/RejectedOffers'
 
 
 const AppRoutes = () => {
@@ -29,7 +30,8 @@ const AppRoutes = () => {
                     <Route path="shopdetails/:id" element={<Shops2 />} />
                     <Route path="delivery_boys" element={<Delivery_Boys />} />
                     <Route path="add_offer" element={<Add_Offer/>} />
-                    <Route path="totaloffers" element={<TotalOffers/>} />
+                    <Route path="approvedoffers" element={<ApprovedOffers/>} />
+                    <Route path="rejectedOffers" element={<RejectedOffers/>} />
                 </Route>
             </Route>
         </Routes>

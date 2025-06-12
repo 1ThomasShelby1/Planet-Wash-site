@@ -2,8 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://planetwash.onrender.com' }),
-  tagTypes: ["Shop"],
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://planetwash.onrender.com', 
+  }),
+  tagTypes: ['Shop', 'Offer'],
   endpoints: (builder) => ({
     sendOtp: builder.mutation({
       query: (email) => ({
@@ -32,9 +34,9 @@ export const authApi = createApi({
       providesTags: (result) =>
         result
           ? [
-            ...result.shops.map(({ _id }) => ({ type: 'Shop', id: _id })),
-            { type: 'Shop', id: 'LIST' },
-          ]
+              ...result.shops.map(({ _id }) => ({ type: 'Shop', id: _id })),
+              { type: 'Shop', id: 'LIST' },
+            ]
           : [{ type: 'Shop', id: 'LIST' }],
     }),
     deleteShop: builder.mutation({
@@ -43,13 +45,9 @@ export const authApi = createApi({
         method: 'DELETE',
       }),
       async onQueryStarted(shopId, { dispatch, queryFulfilled }) {
-        // Optimistically update the cache
         const patchResult = dispatch(
-          api.util.updateQueryData('getAllShops', undefined, (draft) => {
-            return {
-              ...draft,
-              shops: draft.shops.filter((shop) => shop._id !== shopId),
-            };
+          authApi.util.updateQueryData('getAllShops', undefined, (draft) => {
+            draft.shops = draft.shops.filter((shop) => shop._id !== shopId);
           })
         );
         try {
@@ -107,13 +105,29 @@ export const authApi = createApi({
         method: 'GET',
       }),
       providesTags: (result) =>
-    result?.data
-      ? [
-          ...result.data.map(({ _id }) => ({ type: 'Shop', id: _id })),
-          { type: 'Shop', id: 'LIST_OFFERS' },
-        ]
-      : [{ type: 'Shop', id: 'LIST_OFFERS' }],
+        result?.data
+          ? [
+              ...result.data.map(({ _id }) => ({ type: 'Shop', id: _id })),
+              { type: 'Shop', id: 'LIST_OFFERS' },
+            ]
+          : [{ type: 'Shop', id: 'LIST_OFFERS' }],
     }),
+
+    // ✅ NEW: Get All Pending Offers
+    getPendingOffers: builder.query({
+      query: () => ({
+        url: '/shop/offer/pending',
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result?.data
+          ? [
+              ...result.data.map(({ _id }) => ({ type: 'Offer', id: _id })),
+              { type: 'Offer', id: 'LIST_PENDING' },
+            ]
+          : [{ type: 'Offer', id: 'LIST_PENDING' }],
+    }),
+
     approveOffer: builder.mutation({
       query: (offerId) => ({
         url: `/shop/offer/approve/${offerId}`,
@@ -122,6 +136,7 @@ export const authApi = createApi({
       invalidatesTags: (result, error, offerId) => [
         { type: 'Shop', id: offerId },
         { type: 'Shop', id: 'LIST_OFFERS' },
+        { type: 'Offer', id: 'LIST_PENDING' },
       ],
     }),
     rejectOffer: builder.mutation({
@@ -132,30 +147,29 @@ export const authApi = createApi({
       invalidatesTags: (result, error, offerId) => [
         { type: 'Shop', id: offerId },
         { type: 'Shop', id: 'LIST_OFFERS' },
+        { type: 'Offer', id: 'LIST_PENDING' },
       ],
     }),
     OfferAddedByAdmin: builder.mutation({
       query: (formData) => ({
         url: `/shop/offer/addOfferByAdmin`,
         method: 'POST',
-        body:formData,
+        body: formData,
         responseHandler: 'text',
       }),
-        invalidatesTags: [{ type: 'Shop', id: 'LIST_OFFERS' }],
+      invalidatesTags: [{ type: 'Shop', id: 'LIST_OFFERS' }],
     }),
     deleteOffers: builder.mutation({
       query: (id) => ({
         url: `/shop/offer/delete/${id}`,
         method: 'DELETE',
       }),
-        invalidatesTags: ['Offer'],
+      invalidatesTags: ['Offer'],
     }),
-
-  })
-})
+  }),
+});
 
 export const {
-  useOfferAddedByAdminMutation,
   useSendOtpMutation,
   useVerifyOtpMutation,
   useGetAllUsersQuery,
@@ -171,5 +185,7 @@ export const {
   useGetAllOffersQuery,
   useApproveOfferMutation,
   useRejectOfferMutation,
+  useOfferAddedByAdminMutation,
   useDeleteOffersMutation,
+  useGetPendingOffersQuery, 
 } = authApi;

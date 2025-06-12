@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import {
-  useGetAllOffersQuery,
   useApproveOfferMutation,
   useRejectOfferMutation,
   useOfferAddedByAdminMutation,
+  useGetPendingOffersQuery,
 } from '../redux/auth/AuthApi';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +15,15 @@ const Add_Offer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [preview, setPreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loadingId, setLoadingId] = useState(null); 
+  const [actionType, setActionType] = useState(null);
+
 
   const fileRef = useRef();
 
-  const { data: Om, isLoading, error } = useGetAllOffersQuery();
+  const { data: Om, isLoading, error } = useGetPendingOffersQuery();
+  console.log(Om);
+
   const [addOffer, { isLoading: adding }] = useOfferAddedByAdminMutation();
   const [approveOffer, { isLoading: approving }] = useApproveOfferMutation();
   const [rejectOffer, { isLoading: rejecting }] = useRejectOfferMutation();
@@ -27,7 +32,8 @@ const Add_Offer = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const goToTotalOffers = () => navigate('/totaloffers');
+  const goToApprovedOffers = () => navigate('/approvedoffers');
+  const goToRejectedOffers = () => navigate('/rejectedOffers');
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -59,20 +65,32 @@ const Add_Offer = () => {
   };
 
   const handleApprove = async (id) => {
+    setLoadingId(id);
+    setActionType("approve");
     try {
-      await approveOffer(id).unwrap();
+      // your API call here
+      await approveOffer(id);
     } catch (err) {
-      console.error('Approve failed:', err);
+      console.error(err);
+    } finally {
+      setLoadingId(null);
+      setActionType(null);
     }
   };
 
   const handleReject = async (id) => {
+    setLoadingId(id);
+    setActionType("reject");
     try {
-      await rejectOffer(id).unwrap();
+      await rejectOffer(id);
     } catch (err) {
-      console.error('Reject failed:', err);
+      console.error(err);
+    } finally {
+      setLoadingId(null);
+      setActionType(null);
     }
   };
+
 
   return (
     <div className="max-w-sm md:max-w-6xl mx-auto space-y-4 font-sans relative ">
@@ -148,9 +166,14 @@ const Add_Offer = () => {
           )}
 
           <button
-            onClick={goToTotalOffers}
+            onClick={goToApprovedOffers}
             className="bg-[#087FB9] text-white rounded-md px-5 py-2">
-            Total Offers
+            Approved Offer
+          </button>
+          <button
+            onClick={goToRejectedOffers}
+            className="bg-[#087FB9] text-white rounded-md px-5 py-2">
+            Rejected Offers
           </button>
         </div>
       </div>
@@ -167,40 +190,41 @@ const Add_Offer = () => {
               <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
-         <tbody className="font-[500]">
-  {Om?.data?.map(txn => (
-    <tr key={txn._id} className="hover:bg-gray-50 align-middle">
-      <td className="px-4 py-3 text-center align-middle">
-        <img
-          src={txn.image}
-          alt=""
-          className="w-20 h-16 object-cover rounded bg-slate-300 mx-auto"
-        />
-      </td>
-      <td className="px-4 py-3 text-center align-middle">{txn.shopId?.shopName || '-'}</td>
-      <td className="px-4 py-3 text-center align-middle">{txn.shopId?.contactNo || '-'}</td>
-      <td className="px-4 py-3 text-center align-middle">{txn.shopId?.address || '-'}</td>
-      <td className="px-4 py-3 text-center align-middle">
-        <div className="flex justify-center gap-2">
-          <button
-            onClick={() => handleApprove(txn._id)}
-            disabled={approving}
-            className="bg-[#399703] text-white px-4 py-1 rounded-sm"
-          >
-            {approving ? 'Approving...' : 'Approve'}
-          </button>
-          <button
-            onClick={() => handleReject(txn._id)}
-            disabled={rejecting}
-            className="bg-[#F10505] text-white px-4 py-1 rounded-sm"
-          >
-            {rejecting ? 'Rejecting...' : 'Reject'}
-          </button>
-        </div>
-      </td>
-    </tr>
-  ))}
-</tbody>
+          <tbody className="font-[500]">
+            {Om?.data?.map((txn) => (
+              <tr key={txn._id} className="hover:bg-gray-50 align-middle">
+                <td className="px-4 py-3 text-center align-middle">
+                  <img
+                    src={txn.image}
+                    alt=""
+                    className="w-20 h-16 object-cover rounded bg-slate-300 mx-auto"
+                  />
+                </td>
+                <td className="px-4 py-3 text-center align-middle">{txn.shopId?.shopName || '-'}</td>
+                <td className="px-4 py-3 text-center align-middle">{txn.shopId?.contactNo || '-'}</td>
+                <td className="px-4 py-3 text-center align-middle">{txn.shopId?.address || '-'}</td>
+                <td className="px-4 py-3 text-center align-middle">
+                  <div className="flex justify-center gap-2">
+                    <button
+                      onClick={() => handleApprove(txn._id)}
+                      disabled={loadingId === txn._id && actionType === 'approve'}
+                      className="bg-[#399703] text-white px-4 py-1 rounded-sm"
+                    >
+                      {loadingId === txn._id && actionType === 'approve' ? 'Approving...' : 'Approve'}
+                    </button>
+                    <button
+                      onClick={() => handleReject(txn._id)}
+                      disabled={loadingId === txn._id && actionType === 'reject'}
+                      className="bg-[#F10505] text-white px-4 py-1 rounded-sm"
+                    >
+                      {loadingId === txn._id && actionType === 'reject' ? 'Rejecting...' : 'Reject'}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
 
         </table>
       </div>

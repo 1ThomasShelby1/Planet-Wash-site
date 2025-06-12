@@ -60,7 +60,8 @@ const Header = ({ toggleSidebar }) => {
     "/delivery_boys": "Delivery Boys",
     [`/shopdetails/${id}`]: "Planetwash Laundry Shop",
     "/add_offer": "Add Offer",
-    "/totaloffers": "Total Offers",
+    "/approvedoffers": "Approved Offers",
+    "/rejectedOffers": "Rejected Offers",
   };
 
   return (
